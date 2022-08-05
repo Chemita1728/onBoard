@@ -1,0 +1,9 @@
+onBoard/.vs/*
+onBoard/onBoard/bin/*
+onBoard/onBoard/obj/*
+onBoard/onBoard/obj/Debug/*
+
+
+onBoard/onBoard/obj/Debug/net6.0/onBoard.assets.cache
+*.cache
+onBoard/onBoard/obj/Debug/net6.0/onBoard.GeneratedMSBuildEditorConfig.editorconfig

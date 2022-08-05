@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jose.Jeronimo\\Documents\\GitHub\\onBoard\\onBoard\\onBoard\\onBoard.csproj": {}
+    "C:\\Users\\alejandro.borrego\\source\\repos\\onBoard\\onBoard\\onBoard\\onBoard.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jose.Jeronimo\\Documents\\GitHub\\onBoard\\onBoard\\onBoard\\onBoard.csproj": {
+    "C:\\Users\\alejandro.borrego\\source\\repos\\onBoard\\onBoard\\onBoard\\onBoard.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jose.Jeronimo\\Documents\\GitHub\\onBoard\\onBoard\\onBoard\\onBoard.csproj",
+        "projectUniqueName": "C:\\Users\\alejandro.borrego\\source\\repos\\onBoard\\onBoard\\onBoard\\onBoard.csproj",
         "projectName": "onBoard",
-        "projectPath": "C:\\Users\\Jose.Jeronimo\\Documents\\GitHub\\onBoard\\onBoard\\onBoard\\onBoard.csproj",
-        "packagesPath": "C:\\Users\\Jose.Jeronimo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jose.Jeronimo\\Documents\\GitHub\\onBoard\\onBoard\\onBoard\\obj\\",
+        "projectPath": "C:\\Users\\alejandro.borrego\\source\\repos\\onBoard\\onBoard\\onBoard\\onBoard.csproj",
+        "packagesPath": "C:\\Users\\alejandro.borrego\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alejandro.borrego\\source\\repos\\onBoard\\onBoard\\onBoard\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Jose.Jeronimo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\alejandro.borrego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

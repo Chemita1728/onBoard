@@ -1,19 +1,34 @@
-onBoard/.vs/*
-onBoard/onBoard/bin/*
-onBoard/onBoard/obj/Debug/*
-onBoard/.vs/onBoard/*
-onBoard\onBoard\obj\*
-*.[oa]
+# From .NET Core 3.0 you can use the command: `dotnet new gitignore` to generate a customizable .gitignore file
 
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
 
-onBoard/onBoard/obj/Debug/net6.0/onBoard.assets.cache
-*.cache
-onBoard/onBoard/obj/Debug/net6.0/onBoard.GeneratedMSBuildEditorConfig.editorconfig
-onBoard/.vs/onBoard/v17/.suo
-onBoard/onBoard/obj/Debug/net6.0/onBoard.assets.cache
-onBoard/onBoard/obj/Debug/net6.0/onBoard.GeneratedMSBuildEditorConfig.editorconfig
-onBoard/onBoard/obj/onBoard.csproj.nuget.dgspec.json
-onBoard/onBoard/obj/onBoard.csproj.nuget.g.props
-onBoard/onBoard/obj/project.assets.json
-onBoard/onBoard/obj/project.nuget.cache
-onBoard/.vs/onBoard/v17/.suo
+# Visual Studio Code
+.vscode
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio 2015
+.vs/

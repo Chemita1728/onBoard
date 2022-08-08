@@ -1,5 +1,7 @@
+
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Negotiate;
 using onBoard.Data;
 using onBoard.Models;
 
@@ -11,6 +13,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
    .AddNegotiate();
 
+builder.Services.AddDbContext<ProjectContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectContext")));
+
 builder.Services.AddAuthorization(options =>
 {
     // By default, all incoming requests will be authorized according to the default policy.
@@ -18,18 +23,7 @@ builder.Services.AddAuthorization(options =>
 });
 builder.Services.AddRazorPages();
 
-builder.Services.AddDbContext<ProjectContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectContext")));
-
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    app.UseHsts();
-    //SeedData.Initialize(services);
-}
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -44,7 +38,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

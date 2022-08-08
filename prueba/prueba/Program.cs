@@ -1,7 +1,4 @@
 using Microsoft.AspNetCore.Authentication.Negotiate;
-using Microsoft.EntityFrameworkCore;
-using onBoard.Data;
-using onBoard.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,18 +15,7 @@ builder.Services.AddAuthorization(options =>
 });
 builder.Services.AddRazorPages();
 
-builder.Services.AddDbContext<ProjectContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectContext")));
-
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    app.UseHsts();
-    //SeedData.Initialize(services);
-}
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -44,7 +30,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

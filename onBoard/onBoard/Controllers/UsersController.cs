@@ -25,10 +25,13 @@ namespace onBoard.Controllers
         public async Task<IActionResult> Index()
         {
 
-                return View();
-              //return _context.Users != null ? 
-              //            View(await _context.Users.ToListAsync()) :
-              //            Problem("Entity set 'ProjectContext.Users'  is null.");
+            var identidad = User.Identities;
+            //var nombre = identidad.Name;
+            ViewData["Nombre"] = "UwU";
+
+            return View();
+
+                
         }
 
         // GET: Users/Details/5

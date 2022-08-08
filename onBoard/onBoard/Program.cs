@@ -1,9 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+using onBoard.Data;
+using onBoard.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<ProjectContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectContext")));
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    //SeedData.Initialize(services);
+}
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

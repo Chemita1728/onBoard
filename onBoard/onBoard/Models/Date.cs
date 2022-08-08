@@ -9,8 +9,8 @@ namespace onBoard.Models
     {
         public int DateID { get; set; }
         public int UserID { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh:mm:ss}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date")]
         public DateTime DateButtonPressed { get; set; }
         public User User { get; set; }

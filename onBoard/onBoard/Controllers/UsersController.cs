@@ -25,17 +25,10 @@ namespace onBoard.Controllers
         public async Task<IActionResult> Index()
         {
 
-            //var nombre = User.Identity.Name;
-            //var pos = nombre.IndexOf("YOU", 0, nombre.Length, 0);
-            //var befName = nombre.Length - ( pos + 4 );
-            //ViewData["num"] = pos+4;
-            //ViewData["Nombre"] = nombre.Substring( pos + 4, befName);
             var nombre = User.Identity.Name;
-            var befName = nombre.Length - 12;
-            ViewData["Nombre"] = nombre.Substring( 12, befName);
-
+            var pos = nombre.IndexOf("\\", 0, nombre.Length, 0) + 1;
+            ViewData["Nombre"] = nombre.Substring( pos, nombre.Length - pos);
             return View();
-
                 
         }
 

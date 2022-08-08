@@ -22,10 +22,10 @@ namespace onBoard.Controllers
         }
 
         // GET: Users
-        public string Index()
+        public async Task<IActionResult> Index()
         {
 
-                return "User name  will be displayed here: ";
+                return View();
               //return _context.Users != null ? 
               //            View(await _context.Users.ToListAsync()) :
               //            Problem("Entity set 'ProjectContext.Users'  is null.");

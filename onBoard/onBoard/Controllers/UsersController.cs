@@ -25,10 +25,11 @@ namespace onBoard.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var identidad = User.Identities;
-            //var nombre = identidad.Name;
-            ViewData["Nombre"] = "UwU";
+            var nombre = User.Identity.Name;
+            var pos = IndexOf (nombre, 0, nombre.Length, "\t");
+            ViewData["Nombre"] = nombre.Substring(pos, 3);
 
+            
             return View();
 
                 

@@ -63,14 +63,9 @@ namespace onBoard.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserID,Name")] User user)
         {
-
-            User user_ = new User { Name = User.Identity.Name };
-            Date time = new Date { UserID = user_.UserID, DateButtonPressed = DateTime.Now };
-
             if (ModelState.IsValid)
             {
                 _context.Add(user);
-                _context.Add(time);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

@@ -9,6 +9,7 @@ using onBoard.Data;
 using onBoard.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
+using Newtonsoft.Json;
 
 namespace onBoard.Controllers
 {
@@ -53,38 +54,52 @@ namespace onBoard.Controllers
         // GET: Users/Create
         public async Task<IActionResult> Create(TimeSpan? hour)
         {
-            if( hour != null)
-            {
-                ViewData["Hour"] = hour?.Hours.ToString();
-                ViewData["Minute"] = hour?.Minutes.ToString();
-                ViewData["Second"] = hour?.Seconds.ToString();
-            }
+            //if( hour != null)
+            //{
+            //    ViewData["Hour"] = hour?.Hours.ToString();
+            //    ViewData["Minute"] = hour?.Minutes.ToString();
+            //    ViewData["Second"] = hour?.Seconds.ToString();
+            //}
             return View();
         }
 
         // POST: Users/GetHour
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> GetHour()
+        [HttpGet]
+        public JsonResult GetHour()
         {
-            if( _context.Users.Find( getName() ) is null)
-            {
-                User user = new User { Name = getName() };
-                _context.Add(user);
-            }
+            //if( _context.Users.Find( getName() ) is null)
+            //{
+            //    User user = new User { Name = getName() };
+            //    _context.Add(user);
+            //}
             TimeSpan currentHour = DateTime.Now.TimeOfDay;
-            Hour hour = new Hour { UserName = getName(), HourPressed = currentHour };
+            //Hour hour = new Hour { UserName = getName(), HourPressed = currentHour };
             
-            _context.Add(hour);
-            await _context.SaveChangesAsync();
+            //_context.Add(hour);
+            //await _context.SaveChangesAsync();
 
-            return RedirectToAction("Create", new
+            string hours = currentHour.Hours.ToString();
+            string minutes = currentHour.Minutes.ToString();
+            string seconds = currentHour.Seconds.ToString();
+
+            var myData = new
             {
-                hour = currentHour
-            });
+                hours,
+                minutes,
+                seconds
+            };
+
+            //Tranform it to Json object
+            return Json(myData);
+     
+
+
+            //return RedirectToAction("Create", new
+            //{
+            //    hour = currentHour
+            //});
 
         }
 

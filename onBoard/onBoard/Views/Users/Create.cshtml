@@ -6,18 +6,22 @@
 
 <h1>Here is the button</h1>
 
-@if( @ViewData["Hour"] != null)
+@*@if( @ViewData["Hour"] != null)
 {
     <p> User pressed the button at</p>
-    <p> Hour: @ViewData["Hour"]</p>
-    <p> Minute @ViewData["Minute"]</p>
-    <p> Second @ViewData["Second"]</p>
-}
+    <input id="Hour"  name="Hour" type="text" value="Hour: @ViewData["Hour"]"   disabled/>
+    <input id="Minute"  name="Minute" type="text" value="Minutes: @ViewData["Minute"]"  disabled/>
+    <input id="Second"  name="Second" type="text" value="Seconds: @ViewData["Second"]"  disabled/>
+}*@
+<input id="hora"  name="Hour" type="text" disabled/>
+<input id="minuto"  name="Minute" type="text" disabled/>
+<input id="segundo"  name="Second" type="text" disabled/>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="GetHour">
             <div class="form-group">
-                <input type="submit" value="Button" class="btn btn-primary" />
+                <input type="button" onclick="getHour()" value="Button" class="btn btn-primary"/>
             </div>
         </form>
     </div>
@@ -29,4 +33,21 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
 }
+
+<script>
+    
+    function getHour(){
+            $.ajax({
+                url: "/Users/GetHour",
+                method: "GET",
+                dataType: "json"
+            }).done(function(res){
+                console.log(res);
+                $( "#hora" ).val( res.hours);
+                $( "#minuto" ).val( res.minutes);
+                $( "#segundo" ).val( res.seconds);
+            })
+        }
+</script>

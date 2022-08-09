@@ -56,20 +56,21 @@ namespace onBoard.Controllers
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Users/GetHour
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name")] User user)
+
+        public async Task<IActionResult> GetHour()
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(user);
+            User user = new User { Name = getName() };
+            Date time = new Date { UserID = user.UserID, DateButtonPressed = DateTime.Now, User= user };
+
+            _context.Add(time);
+            _context.Add(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Users/Edit/5
@@ -163,6 +164,13 @@ namespace onBoard.Controllers
         private bool UserExists(string id)
         {
           return (_context.Users?.Any(e => e.Name == id)).GetValueOrDefault();
+        }
+
+        private string getName()
+        {
+            var nombre = User.Identity.Name;
+            var pos = nombre.IndexOf("\\", 0, nombre.Length, 0) + 1;
+            return nombre.Substring(pos, nombre.Length - pos);
         }
     }
 }

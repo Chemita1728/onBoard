@@ -65,10 +65,10 @@ namespace onBoard.Controllers
         public async Task<IActionResult> GetHour()
         {
             User user = new User { Name = getName() };
-            Date time = new Date { UserID = user.UserID, DateButtonPressed = DateTime.Now, User= user };
+            Hour time = new Hour { Name = user.Name, HourPressed = DateTime.Now };
 
-            _context.Add(time);
             _context.Add(user);
+            _context.Add(time);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

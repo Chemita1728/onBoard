@@ -12,8 +12,8 @@ using onBoard.Data;
 namespace onBoard.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20220809063419_newDate")]
-    partial class newDate
+    [Migration("20220809064621_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -64,13 +64,16 @@ namespace onBoard.Controllers
 
         public async Task<IActionResult> GetHour()
         {
-            User user = new User { Name = getName() };
-            Hour time = new Hour { Name = user.Name, HourPressed = DateTime.Now };
-
-            _context.Add(user);
-            _context.Add(time);
+            if( _context.Users.Find( getName() ) is null)
+            {
+                User user = new User { Name = getName() };
+                _context.Add(user);
+            }
+            Hour hour = new Hour { UserName = getName(), HourPressed = DateTime.Now };
+            _context.Add(hour);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            //return View(Create);
+            return RedirectToAction(nameof(Create));
         }
 
         // GET: Users/Edit/5

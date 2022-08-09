@@ -12,7 +12,7 @@ using onBoard.Data;
 namespace onBoard.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20220809064621_initialMigration")]
+    [Migration("20220809071332_initialMigration")]
     partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,21 +23,6 @@ namespace onBoard.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("HourUser", b =>
-                {
-                    b.Property<int>("HoursHourID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsersName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("HoursHourID", "UsersName");
-
-                    b.HasIndex("UsersName");
-
-                    b.ToTable("HourUser");
-                });
 
             modelBuilder.Entity("onBoard.Models.Hour", b =>
                 {
@@ -50,11 +35,13 @@ namespace onBoard.Migrations
                     b.Property<DateTime>("HourPressed")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("HourID");
+
+                    b.HasIndex("UserName");
 
                     b.ToTable("Date", (string)null);
                 });
@@ -69,19 +56,20 @@ namespace onBoard.Migrations
                     b.ToTable("User", (string)null);
                 });
 
-            modelBuilder.Entity("HourUser", b =>
+            modelBuilder.Entity("onBoard.Models.Hour", b =>
                 {
-                    b.HasOne("onBoard.Models.Hour", null)
-                        .WithMany()
-                        .HasForeignKey("HoursHourID")
+                    b.HasOne("onBoard.Models.User", "User")
+                        .WithMany("Hours")
+                        .HasForeignKey("UserName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("onBoard.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("onBoard.Models.User", b =>
+                {
+                    b.Navigation("Hours");
                 });
 #pragma warning restore 612, 618
         }

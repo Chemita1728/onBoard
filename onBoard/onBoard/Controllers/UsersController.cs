@@ -56,25 +56,21 @@ namespace onBoard.Controllers
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Users/GetHour
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserID,Name")] User user)
+        public async Task<IActionResult> GetHour()
         {
+            User user = new User { Name = getName() };
+            Date time = new Date { UserID = user.UserID, DateButtonPressed = DateTime.Now, User= user };
 
-            User user_ = new User { Name = getName() };
-            //Date time = new Date { UserID = user_.UserID, DateButtonPressed = DateTime.Now };
+            _context.Add(time);
+            _context.Add(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
 
-            if (true)
-            {
-                //_context.Add(time);
-                _context.Add(user_);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(user_);
         }
 
         // GET: Users/Edit/5

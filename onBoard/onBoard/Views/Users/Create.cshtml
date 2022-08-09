@@ -8,7 +8,10 @@
 
 @if( @ViewData["Hour"] != null)
 {
-    <p> User pressed the button at @ViewData["Hour"]</p>
+    <p> User pressed the button at</p>
+    <p> Hour: @ViewData["Hour"]</p>
+    <p> Minute @ViewData["Minute"]</p>
+    <p> Second @ViewData["Second"]</p>
 }
 <div class="row">
     <div class="col-md-4">

@@ -51,10 +51,14 @@ namespace onBoard.Controllers
         }
 
         // GET: Users/Create
-        public async Task<IActionResult> Create(string? hour)
+        public async Task<IActionResult> Create(TimeSpan? hour)
         {
-            ViewData["Hour"] = hour;
-
+            if( hour != null)
+            {
+                ViewData["Hour"] = hour?.Hours.ToString();
+                ViewData["Minute"] = hour?.Minutes.ToString();
+                ViewData["Second"] = hour?.Seconds.ToString();
+            }
             return View();
         }
 
@@ -76,10 +80,10 @@ namespace onBoard.Controllers
             
             _context.Add(hour);
             await _context.SaveChangesAsync();
-            
+
             return RedirectToAction("Create", new
             {
-                hour = currentHour.ToString()
+                hour = currentHour
             });
 
         }

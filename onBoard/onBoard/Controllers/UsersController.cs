@@ -64,17 +64,17 @@ namespace onBoard.Controllers
         public async Task<IActionResult> Create([Bind("UserID,Name")] User user)
         {
 
-            User user_ = new User { Name = User.Identity.Name };
-            Date time = new Date { UserID = user_.UserID, DateButtonPressed = DateTime.Now };
+            User user_ = new User { Name = getName() };
+            //Date time = new Date { UserID = user_.UserID, DateButtonPressed = DateTime.Now };
 
-            if (ModelState.IsValid)
+            if (true)
             {
-                _context.Add(user);
-                _context.Add(time);
+                //_context.Add(time);
+                _context.Add(user_);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(user_);
         }
 
         // GET: Users/Edit/5
@@ -168,6 +168,13 @@ namespace onBoard.Controllers
         private bool UserExists(int id)
         {
           return (_context.Users?.Any(e => e.UserID == id)).GetValueOrDefault();
+        }
+
+        private string getName()
+        {
+            var nombre = User.Identity.Name;
+            var pos = nombre.IndexOf("\\", 0, nombre.Length, 0) + 1;
+            return nombre.Substring(pos, nombre.Length - pos);
         }
     }
 }

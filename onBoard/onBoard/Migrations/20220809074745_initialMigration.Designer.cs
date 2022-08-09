@@ -12,7 +12,7 @@ using onBoard.Data;
 namespace onBoard.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20220809071332_initialMigration")]
+    [Migration("20220809074745_initialMigration")]
     partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,8 +32,8 @@ namespace onBoard.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HourID"), 1L, 1);
 
-                    b.Property<DateTime>("HourPressed")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("HourPressed")
+                        .HasColumnType("time");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -43,7 +43,7 @@ namespace onBoard.Migrations
 
                     b.HasIndex("UserName");
 
-                    b.ToTable("Date", (string)null);
+                    b.ToTable("Hour", (string)null);
                 });
 
             modelBuilder.Entity("onBoard.Models.User", b =>

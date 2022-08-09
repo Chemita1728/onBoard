@@ -69,7 +69,9 @@ namespace onBoard.Controllers
                 User user = new User { Name = getName() };
                 _context.Add(user);
             }
-            Hour hour = new Hour { UserName = getName(), HourPressed = DateTime.Now };
+            Hour hour = new Hour { UserName = getName(), HourPressed = DateTime.Now.TimeOfDay };
+            //Hour hour = new Hour { UserName = getName(), HourPressed = DateTime.Now };
+            
             _context.Add(hour);
             await _context.SaveChangesAsync();
             //return View(Create);

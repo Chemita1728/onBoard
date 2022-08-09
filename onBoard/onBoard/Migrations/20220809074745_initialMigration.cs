@@ -21,19 +21,19 @@ namespace onBoard.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Date",
+                name: "Hour",
                 columns: table => new
                 {
                     HourID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    HourPressed = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    HourPressed = table.Column<TimeSpan>(type: "time", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Date", x => x.HourID);
+                    table.PrimaryKey("PK_Hour", x => x.HourID);
                     table.ForeignKey(
-                        name: "FK_Date_User_UserName",
+                        name: "FK_Hour_User_UserName",
                         column: x => x.UserName,
                         principalTable: "User",
                         principalColumn: "Name",
@@ -41,15 +41,15 @@ namespace onBoard.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Date_UserName",
-                table: "Date",
+                name: "IX_Hour_UserName",
+                table: "Hour",
                 column: "UserName");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Date");
+                name: "Hour");
 
             migrationBuilder.DropTable(
                 name: "User");

@@ -51,9 +51,10 @@ namespace onBoard.Controllers
         }
 
         // GET: Users/Create
-        public async Task<IActionResult> Create( string? hour )
+        public async Task<IActionResult> Create(string? hour)
         {
             ViewData["Hour"] = hour;
+
             return View();
         }
 
@@ -72,16 +73,15 @@ namespace onBoard.Controllers
             }
             TimeSpan currentHour = DateTime.Now.TimeOfDay;
             Hour hour = new Hour { UserName = getName(), HourPressed = currentHour };
-            //Hour hour = new Hour { UserName = getName(), HourPressed = DateTime.Now };
             
             _context.Add(hour);
             await _context.SaveChangesAsync();
-            //Create(currentHour);
-            //string url = "Create/" + currentHour.ToString();
-            string url = "Create";
-            return View(url, currentHour.ToString());
-            //return RedirectToAction(currentHour.ToString(), nameof(Create));
-            //return RedirectToAction( nameof(Create) );
+            
+            return RedirectToAction("Create", new
+            {
+                hour = currentHour.ToString()
+            });
+
         }
 
         // GET: Users/Edit/5

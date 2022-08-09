@@ -25,15 +25,15 @@ namespace onBoard.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var nombre = User.Identity.Name;
-            var pos = nombre.IndexOf("\\", 0, nombre.Length, 0) + 1;
-            ViewData["Nombre"] = nombre.Substring( pos, nombre.Length - pos);
+            var name = User.Identity.Name;
+            var pos = name.IndexOf("\\", 0, name.Length, 0) + 1;
+            ViewData["Name"] = name.Substring( pos, name.Length - pos);
             return View();
                 
         }
 
         // GET: Users/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null || _context.Users == null)
             {
@@ -41,7 +41,7 @@ namespace onBoard.Controllers
             }
 
             var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.UserID == id);
+                .FirstOrDefaultAsync(m => m.Name == id);
             if (user == null)
             {
                 return NotFound();
@@ -61,7 +61,7 @@ namespace onBoard.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserID,Name")] User user)
+        public async Task<IActionResult> Create([Bind("Name")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace onBoard.Controllers
         }
 
         // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null || _context.Users == null)
             {
@@ -93,9 +93,9 @@ namespace onBoard.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserID,Name")] User user)
+        public async Task<IActionResult> Edit(string id, [Bind("Name")] User user)
         {
-            if (id != user.UserID)
+            if (id != user.Name)
             {
                 return NotFound();
             }
@@ -109,7 +109,7 @@ namespace onBoard.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.UserID))
+                    if (!UserExists(user.Name))
                     {
                         return NotFound();
                     }
@@ -124,7 +124,7 @@ namespace onBoard.Controllers
         }
 
         // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null || _context.Users == null)
             {
@@ -132,7 +132,7 @@ namespace onBoard.Controllers
             }
 
             var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.UserID == id);
+                .FirstOrDefaultAsync(m => m.Name == id);
             if (user == null)
             {
                 return NotFound();
@@ -144,7 +144,7 @@ namespace onBoard.Controllers
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.Users == null)
             {
@@ -160,9 +160,9 @@ namespace onBoard.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(string id)
         {
-          return (_context.Users?.Any(e => e.UserID == id)).GetValueOrDefault();
+          return (_context.Users?.Any(e => e.Name == id)).GetValueOrDefault();
         }
     }
 }

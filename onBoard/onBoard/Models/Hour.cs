@@ -5,15 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace onBoard.Models
 {
-    public class Date
+    public class Hour
     {
-        public int DateID { get; set; }
-        public int UserID { get; set; }
+        public int HourID { get; set; }
+        public string Name { get; set; }
+
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:hh:mm:ss}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date")]
-        public DateTime DateButtonPressed { get; set; }
-        public User User { get; set; }
+        public DateTime HourPressed { get; set; }
+
+        public ICollection<User> Users { get; set; }
 
     }
 }

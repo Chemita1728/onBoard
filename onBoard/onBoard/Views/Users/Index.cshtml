@@ -6,10 +6,10 @@
 
 <h1>Index</h1>
 
-<p> User @ViewData["Nombre"] will push the button </p>
+<p> User @ViewData["Name"] will push the button </p>
 @*<p> @ViewData["num"] </p>*@
 <td>                
-    <a asp-action="Create" asp-route-id="@User.Identity?.Name!">Go button</a>
+    <a asp-action="Create" asp-route-id="@ViewData["Name"]">Go button</a>
 </td>
 
 @*<p>

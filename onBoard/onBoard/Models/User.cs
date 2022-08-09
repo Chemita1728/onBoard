@@ -6,12 +6,12 @@ namespace onBoard.Models
 {
     public class User
     {
-        public int UserID { get; set; }
 
         [Display(Name = "User name")]
+        [Key]
         [Required]
         public String Name { get; set; }
 
-        public ICollection<Date> Dates { get; set; }
+        public ICollection<Hour> Hours { get; set; }
     }
 }

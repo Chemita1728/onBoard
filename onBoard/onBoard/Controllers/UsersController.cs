@@ -198,9 +198,16 @@ namespace onBoard.Controllers
 
         private string getName()
         {
-            var nombre = User.Identity.Name;
-            var pos = nombre.IndexOf("\\", 0, nombre.Length, 0) + 1;
-            return nombre.Substring(pos, nombre.Length - pos);
+            var name = User.Identity.Name;
+            var pos = name.IndexOf("\\", 0, name.Length, 0) + 1;
+            return name.Substring(pos, name.Length - pos);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetNameLayout()
+        {
+            var name = getName();
+            return Json(name);
         }
     }
 }

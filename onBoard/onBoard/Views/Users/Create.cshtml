@@ -16,6 +16,7 @@
 <input id="hora"  name="Hour" type="text" disabled/>
 <input id="minuto"  name="Minute" type="text" disabled/>
 <input id="segundo"  name="Second" type="text" disabled/>
+<input id="errMsg"/>
 
 <div class="row">
     <div class="col-md-4">
@@ -36,18 +37,23 @@
     
 }
 
-<script>
-    
+<script>    
+    window.DEBUG = true; 
     function getHour(){
-            $.ajax({
-                url: "/Users/GetHour",
-                method: "GET",
-                dataType: "json"
-            }).done(function(res){
-                console.log(res);
-                $( "#hora" ).val( res.hours);
-                $( "#minuto" ).val( res.minutes);
-                $( "#segundo" ).val( res.seconds);
-            })
-        }
+        
+        $.ajax({
+            url: "/Users/GetHour",
+            method: "GET",
+            dataType: "json"
+        }).done(function(res) {
+            console.log(res);
+            $("#hora").val(res.hours);
+            $("#minuto").val(res.minutes);
+            $("#segundo").val(res.seconds);
+        }).fail(function(res) {
+            $("#errMsg").html("<strong>Somethign went wrong!</strong>")
+        }).always(function() {
+            if (window.DEBUG) console.warn("Content feched");
+        });
+    }
 </script>

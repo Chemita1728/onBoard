@@ -30,12 +30,15 @@ namespace onBoard.Controllers
             var pos = name.IndexOf("\\", 0, name.Length, 0) + 1;
             ViewData["Name"] = name.Substring( pos, name.Length - pos);
             return View();
+
                 
         }
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(string? id)
         {
+
+           
             if (id == null || _context.Users == null)
             {
                 return NotFound();

@@ -16,8 +16,8 @@
 <input id="hora"  name="Hour" type="text" disabled/>
 <input id="minuto"  name="Minute" type="text" disabled/>
 <input id="segundo"  name="Second" type="text" disabled/>
-<input id="errMsg"/>
-
+@*<input id="errMsg"/>
+*@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="GetHour">
@@ -52,8 +52,6 @@
             $("#segundo").val(res.seconds);
         }).fail(function(res) {
             $("#errMsg").html("<strong>Somethign went wrong!</strong>")
-        }).always(function() {
-            if (window.DEBUG) console.warn("Content feched");
-        });
+        })
     }
 </script>

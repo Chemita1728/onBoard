@@ -1,8 +1,42 @@
-﻿@{
+﻿@model onBoard.Models.User
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Hour Page</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 style="margin-bottom: 50px" class="display-4">Hour Page</h1>
+    <div style="text-align:center">
+        <input id="hora"  name="Hour" type="text" disabled/>
+        <input id="minuto"  name="Minute" type="text" disabled/>
+        <input style="margin-bottom: 50px" id="segundo"  name="Second" type="text" disabled/>
+
+        <form asp-action="GetHour">
+            <div class="form-group">
+                <input type="button" onclick="getHour()" value="Button" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
 </div>
+
+
+<script>    
+    window.DEBUG = true; 
+    function getHour(){
+        
+        $.ajax({
+            url: "/Users/GetHour",
+            method: "GET",
+            dataType: "json"
+        }).done(function(res) {
+            console.log(res);
+            $("#hora").val(res.hours);
+            $("#minuto").val(res.minutes);
+            $("#segundo").val(res.seconds);
+        }).fail(function(res) {
+            $("#errMsg").html("<strong>Somethign went wrong!</strong>")
+        }).always(function() {
+            if (window.DEBUG) console.warn("Content feched");
+        });
+    }
+</script>
+

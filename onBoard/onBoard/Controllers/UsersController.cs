@@ -31,7 +31,9 @@ namespace onBoard.Controllers
             {
                 return NotFound();
             }
-            return View(await hours.ToListAsync());
+
+            int pagesize = 3;
+            return View(await PaginatedList<Hour>.CreateAsync(hours,1,pagesize));
 
         }
 

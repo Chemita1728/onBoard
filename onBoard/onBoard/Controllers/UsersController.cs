@@ -70,19 +70,10 @@ namespace onBoard.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpGet]
-        public JsonResult GetHour()
+        public async Task<JsonResult> GetHour()
         {
-            //if( _context.Users.Find( getName() ) is null)
-            //{
-            //    User user = new User { Name = getName() };
-            //    _context.Add(user);
-            //}
             TimeSpan currentHour = DateTime.Now.TimeOfDay;
-            //Hour hour = new Hour { UserName = getName(), HourPressed = currentHour };
-            
-            //_context.Add(hour);
-            //await _context.SaveChangesAsync();
-
+            await UpdateDatabase(currentHour);
             string hours = currentHour.Hours.ToString();
             string minutes = currentHour.Minutes.ToString();
             string seconds = currentHour.Seconds.ToString();
@@ -96,14 +87,19 @@ namespace onBoard.Controllers
 
             //Tranform it to Json object
             return Json(myData);
-     
+        }
 
+        public async Task UpdateDatabase(TimeSpan currentHour)
+        {
+            if (_context.Users.Find(getName()) is null)
+            {
+                User user = new User { Name = getName() };
+                _context.Add(user);
+            }
+            Hour hour = new Hour { UserName = getName(), HourPressed = currentHour };
 
-            //return RedirectToAction("Create", new
-            //{
-            //    hour = currentHour
-            //});
-
+            _context.Add(hour);
+            await _context.SaveChangesAsync();
         }
 
         // GET: Users/Edit/5

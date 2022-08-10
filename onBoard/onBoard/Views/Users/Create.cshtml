@@ -52,8 +52,6 @@
             $("#segundo").val(res.seconds);
         }).fail(function(res) {
             $("#errMsg").html("<strong>Somethign went wrong!</strong>")
-        }).always(function() {
-            if (window.DEBUG) console.warn("Content feched");
-        });
+        })
     }
 </script>

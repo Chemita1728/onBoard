@@ -23,7 +23,7 @@ namespace onBoard.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
 
             var hours = _context.Hours.AsNoTracking();
@@ -32,8 +32,8 @@ namespace onBoard.Controllers
                 return NotFound();
             }
 
-            int pagesize = 3;
-            return View(await PaginatedList<Hour>.CreateAsync(hours,1,pagesize));
+            int pagesize = 10;
+            return View(await PaginatedList<Hour>.CreateAsync(hours, pageNumber ?? 1, pagesize));
 
         }
 

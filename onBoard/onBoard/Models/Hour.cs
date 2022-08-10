@@ -10,7 +10,8 @@ namespace onBoard.Models
         public int HourID { get; set; }
         public string UserName { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:hh:mm:ss}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date")]
         public TimeSpan HourPressed { get; set; }
 

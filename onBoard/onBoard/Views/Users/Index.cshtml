@@ -1,42 +1,32 @@
-﻿@model IEnumerable<onBoard.Models.User>
+﻿@model IEnumerable<onBoard.Models.Hour>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Horas";
 }
 
-<h1>Index</h1>
+<h1>Horas Registradas</h1>
 
-<p> User @ViewData["Name"] will push the button </p>
-@*<p> @ViewData["num"] </p>*@
-<td>                
-    <a asp-action="Create">Go button</a>
-</td>
-
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.UserName)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.HourPressed)
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+    @foreach (var item in Model) {
+        <tr> 
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UserID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UserID">Delete</a>
+                @Html.DisplayFor(modelItem => item.HourPressed)
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
-*@

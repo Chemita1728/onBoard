@@ -26,12 +26,13 @@ namespace onBoard.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var name = User.Identity.Name;
-            var pos = name.IndexOf("\\", 0, name.Length, 0) + 1;
-            ViewData["Name"] = name.Substring( pos, name.Length - pos);
-            return View();
+            var hours = _context.Hours.AsNoTracking();
+            if (hours == null)
+            {
+                return NotFound();
+            }
+            return View(await hours.ToListAsync());
 
-                
         }
 
         // GET: Users/Details/5

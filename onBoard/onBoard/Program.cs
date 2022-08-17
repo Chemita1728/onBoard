@@ -4,10 +4,24 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using onBoard.Data;
 using onBoard.Models;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowInputForYouPolicy",
+        builder =>
+        {
+            builder.WithOrigins("https://*.input4you.be", "http://*.inputforyou.local", "http://localhost:4200")
+                .WithHeaders(HeaderNames.ContentType, "*")
+                .WithMethods("POST", "PUT", "DELETE", "GET", "OPTIONS")
+                .AllowAnyHeader()
+                .SetIsOriginAllowedToAllowWildcardSubdomains();
+        });
+});
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
@@ -40,6 +54,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors("AllowInputForYouPolicy");
 
 app.MapControllerRoute(
     name: "default",

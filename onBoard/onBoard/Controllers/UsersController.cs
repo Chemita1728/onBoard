@@ -26,7 +26,7 @@ namespace onBoard.Controllers
         public async Task<IActionResult> Index(int? pageNumber)
         {
 
-            var hours = _context.Hours.AsNoTracking();
+            var hours = _context.Hours.AsNoTracking().OrderByDescending(x => x.HourPressed);
             if (hours == null)
             {
                 return NotFound();

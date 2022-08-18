@@ -7,6 +7,7 @@ using onBoard.Models;
 using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication;
 using onBoard;
+using onBoard.DBRepo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,8 @@ builder.Services.AddAuthentication("BasicAuthentication")
 
 builder.Services.AddDbContext<ProjectContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectContext")));
+
+builder.Services.AddScoped<IDBRepo, DBRepoSQL>();
 
 builder.Services.AddAuthorization(options =>
 {

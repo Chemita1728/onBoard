@@ -1,11 +1,12 @@
-﻿namespace onBoard.DBRepo
-{
-    public interface IDBRepo<T>
-    {
-        public bool StoreTimeSpan(TimeSpan currentHour);
-        public Task<bool> AsyncStoreTimeSpan(TimeSpan currentHour);
+﻿using onBoard.Models;
 
-        public List<T> GetList(int? offset = null, int? limit = null);
-        public Task<List<T>> AsyncGetList(int? offset = null, int? limit = null);
+namespace onBoard.DBRepo
+{
+    public interface IDBRepo
+    {
+        public void StoreTimeSpan(TimeSpan currentHour, string name);
+        public Task AsyncStoreTimeSpan(TimeSpan currentHour, string name);
+        public List<Hour> GetList();
+        public Task<List<Hour>> AsyncGetList();
     }
 }

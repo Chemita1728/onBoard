@@ -1,27 +1,52 @@
-﻿using onBoard.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using onBoard.Data;
+using onBoard.Models;
+
+
+//_context.Database.GetDbConnection().GetType();
 
 namespace onBoard.DBRepo
 {
-    public class DBRepoSQL : IDBRepo<Hour>
+    public class DBRepoSQL : IDBRepo
     {
-        public Task<List<Hour>> AsyncGetList(int? offset = null, int? limit = null)
+        private readonly ProjectContext _context;
+
+        public DBRepoSQL( ProjectContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public Task<List<Hour>> AsyncGetList()
+        {
+            return _context.Hours.AsNoTracking().OrderByDescending(x => x.HourPressed).ToListAsync();
         }
 
-        public Task<bool> AsyncStoreTimeSpan(TimeSpan currentHour)
+        public async Task AsyncStoreTimeSpan(TimeSpan currentHour, string name)
         {
-            throw new NotImplementedException();
+            if (_context.Users.Find(name) is null)
+            {
+                User user = new User { Name = name };
+                _context.Add(user);
+            }
+            Hour hour = new Hour { UserName = name, HourPressed = currentHour };
+            _context.Add(hour);
+            await _context.SaveChangesAsync();
         }
 
-        public List<Hour> GetList(int? offset = null, int? limit = null)
+        public List<Hour> GetList()
         {
-            throw new NotImplementedException();
+            return _context.Hours.AsNoTracking().OrderByDescending(x => x.HourPressed).ToList();
         }
 
-        public bool StoreTimeSpan(TimeSpan currentHour)
+        public void StoreTimeSpan(TimeSpan currentHour, string name)
         {
-            throw new NotImplementedException();
+            if (_context.Users.Find(name) is null)
+            {
+                User user = new User { Name = name };
+                _context.Add(user);
+            }
+            Hour hour = new Hour { UserName = name, HourPressed = currentHour };
+            _context.Add(hour);
+            _context.SaveChanges();
         }
     }
 }

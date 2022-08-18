@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authentication.Negotiate;
 using onBoard.Data;
 using onBoard.Models;
 using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.Authentication;
+using onBoard;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,15 +26,18 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
-   .AddNegotiate();
+//builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
+//   .AddNegotiate();
+
+builder.Services.AddAuthentication("BasicAuthentication")
+   .AddScheme<AuthenticationSchemeOptions,MockAuthenticatedUser>("BasicAuthentication", null);
 
 builder.Services.AddDbContext<ProjectContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectContext")));
 
 builder.Services.AddAuthorization(options =>
 {
-    // By default, all incoming requests will be authorized according to the default policy.
+     // By default, all incoming requests will be authorized according to the default policy.
     options.FallbackPolicy = options.DefaultPolicy;
 });
 builder.Services.AddRazorPages();

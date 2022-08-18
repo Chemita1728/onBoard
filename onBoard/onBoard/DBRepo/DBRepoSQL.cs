@@ -27,14 +27,14 @@ namespace onBoard.DBRepo
                 User user = new User { Name = name };
                 _context.Add(user);
             }
-            Hour hour = new Hour { UserName = name, HourPressed = currentHour };
+            HourSQL hour = new HourSQL { UserName = name, HourPressed = currentHour };
             _context.Add(hour);
             await _context.SaveChangesAsync();
         }
 
         public List<Hour> GetList()
         {
-            return _context.Hours.AsNoTracking().OrderByDescending(x => x.HourPressed).ToList();
+            return _context.Hours.AsNoTracking().OrderByDescending(x => x.HourPressed).ToList().ConvertAll<Hour>(p => (Hour)p);
         }
 
         public void StoreTimeSpan(TimeSpan currentHour, string name)
@@ -44,7 +44,7 @@ namespace onBoard.DBRepo
                 User user = new User { Name = name };
                 _context.Add(user);
             }
-            Hour hour = new Hour { UserName = name, HourPressed = currentHour };
+            HourSQL hour = new HourSQL { UserName = name, HourPressed = currentHour };
             _context.Add(hour);
             _context.SaveChanges();
         }

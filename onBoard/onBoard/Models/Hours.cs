@@ -7,7 +7,7 @@ namespace onBoard.Models
 {
     public class Hours
     {
-        public List<Hour> HourList { get; set; }
+        public List<HourSQL> HourList { get; set; }
 
     }
 }

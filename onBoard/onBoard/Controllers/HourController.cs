@@ -27,7 +27,7 @@ namespace onBoard.Controllers
 
         [AllowAnonymous]
         [HttpGet(Name = "GetHour")]
-        public IEnumerable<Hour> Get( int offset = 0, int limit = 10 )
+        public IEnumerable<HourSQL> Get( int offset = 0, int limit = 10 )
         {
             
             return _context.Hours.AsNoTracking().Skip(offset).Take(limit); 

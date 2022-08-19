@@ -33,10 +33,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication("BasicAuthentication")
    .AddScheme<AuthenticationSchemeOptions,MockAuthenticatedUser>("BasicAuthentication", null);
 
-builder.Services.AddDbContext<ProjectContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectContext")));
+//builder.Services.AddDbContext<ProjectContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectContext")));
 
-builder.Services.AddScoped<IDBRepo, DBRepoSQL>();
+builder.Services.AddSingleton<DBRepoMongo>();
+builder.Services.AddScoped<IDBRepo, DBRepoMongo>();
+
+
+//builder.Services.AddScoped<IDBRepo, DBRepoSQL>();
 
 builder.Services.AddAuthorization(options =>
 {

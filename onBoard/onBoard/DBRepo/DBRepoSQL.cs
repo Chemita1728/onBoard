@@ -17,7 +17,7 @@ namespace onBoard.DBRepo
         }
         public Task<List<Hour>> AsyncGetList()
         {
-            return _context.Hours.AsNoTracking().OrderByDescending(x => x.HourPressed).ToListAsync();
+            return _context.Hours.AsNoTracking().OrderByDescending(x => x.HourPressed).ToListAsync<Hour>();
         }
 
         public async Task AsyncStoreTimeSpan(TimeSpan currentHour, string name)
@@ -34,7 +34,19 @@ namespace onBoard.DBRepo
 
         public List<Hour> GetList()
         {
-            return _context.Hours.AsNoTracking().OrderByDescending(x => x.HourPressed).ToList().ConvertAll<Hour>(p => (Hour)p);
+            try
+            {
+                //var hoursSQL = _context.Hours.AsNoTracking().OrderByDescending(x => x.HourPressed).ToList();
+                //var hours = hoursSQL.ConvertAll<Hour>(p => (Hour)p);
+            
+
+                return _context.Hours.AsNoTracking().OrderByDescending(x => x.HourPressed).ToList().ConvertAll<Hour>(p => (Hour)p);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         public void StoreTimeSpan(TimeSpan currentHour, string name)

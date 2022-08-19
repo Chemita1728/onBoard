@@ -1,4 +1,6 @@
-﻿namespace onBoard.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace onBoard.Models
 {
     public abstract class Hour
     {

@@ -18,7 +18,7 @@ namespace onBoard.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("User");
-            modelBuilder.Entity<HourSQL>().ToTable("Hour");
+            modelBuilder.Entity<HourSQL>().ToTable("Hour").HasKey(p => p.HourID);
         }
     }
 }

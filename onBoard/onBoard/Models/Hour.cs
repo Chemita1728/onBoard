@@ -2,7 +2,7 @@
 
 namespace onBoard.Models
 {
-    public abstract class Hour
+    public class Hour
     {
         public int HourID { get; set; }
         public string UserName { get; set; }

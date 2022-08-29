@@ -12,6 +12,7 @@ namespace onBoard.Models
         [Required]
         public String Name { get; set; }
 
-        public ICollection<HourSQL> Hours { get; set; }
+        public virtual ICollection<Hour> Hours { get; set; }
+
     }
 }

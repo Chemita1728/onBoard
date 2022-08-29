@@ -3,10 +3,11 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace onBoard.Models
 {
-    public class HourMongo : Hour
+    public class UserMongo:User
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
-        public ObjectId _id;
+        public ObjectId _id { get; set; }
+        public override ICollection<HourMongo> Hours { get; set; }
     }
 }

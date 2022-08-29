@@ -7,12 +7,12 @@ namespace onBoard.DBRepo
 {
     public class DBRepoMongo : IDBRepo
     {
-        private readonly IMongoCollection<HourMongo> _hourCollection;
+        private readonly IMongoCollection<UserMongo> _hourCollection;
         public DBRepoMongo()
         {
             var mongoClient = new MongoClient("mongodb://admin:2yqOCeggHXPp@mongodb.dev.inputforyou.local:27017/?ssl=false");
             var mongoDatabase = mongoClient.GetDatabase("onBoard");
-            _hourCollection = mongoDatabase.GetCollection<HourMongo>("UserHour");
+            _hourCollection = mongoDatabase.GetCollection<UserMongo>("UserHour");
         }
 
         public Task<List<Hour>> AsyncGetList()
@@ -22,23 +22,37 @@ namespace onBoard.DBRepo
             //return _hourCollection.Find(_ => true).ToListAsync<Hour>();
         }
 
-        public async Task AsyncStoreTimeSpan(TimeSpan currentHour, string name)
+        public Task AsyncStoreTimeSpan(TimeSpan currentHour, string name)
         {
-            throw new NotImplementedException();
-        }
+            UserMongo user = _hourCollection.Find(user => user.Name == name).Single();
 
-        public List<Hour> GetList()
-        {
-            //return mongoDatabase.Hours.find( { $orderBy: { weight: -1 } }).ToList();
-            return _hourCollection.Find(_ => true).ToList().ConvertAll<Hour>(p => (Hour)p);
+            if (user!= null)
+            {
+                user.Hours.Add(new HourMongo { HourPressed = currentHour, UserName = name });
+                _hourCollection.UpdateOne(p=> p._id==user._id, Builders<UserMongo>.Update.Set("Hours", user.Hours.ToBsonDocument()));
+            }
+            else
+            {
+                List<HourMongo> hoursList = new();
+
+                UserMongo user_mongo = new UserMongo { Name = name, Hours = hoursList };
+
+                user_mongo.Hours.Add(new HourMongo { HourPressed = currentHour, UserName = name });
+
+                _hourCollection.InsertOne(user_mongo);
+            }
+
+            return Task.CompletedTask;
         }
 
         public void StoreTimeSpan(TimeSpan currentHour, string name)
         {
-            //User user = new User { Name = name };
-            //mongoDatabase.Users.insertOne(user);
-            HourMongo hour = new HourMongo { UserName = name, HourPressed = currentHour };
-            _hourCollection.InsertOne(hour);
+            AsyncStoreTimeSpan(currentHour, name).Wait();
+        }
+
+        List<Hour> IDBRepo.GetList()
+        {
+            return _hourCollection.Find(user => user.Name == "").Single().Hours.Cast<Hour>().ToList();
         }
     }
 }

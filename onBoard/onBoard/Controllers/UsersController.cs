@@ -22,7 +22,7 @@ namespace onBoard.Controllers
         //{
         //    _context = context;
         //}
-        public UsersController(IDBRepo db)
+        public UsersController(DBRepoMongo db)
         {
             _db = db;
         }
@@ -60,7 +60,7 @@ namespace onBoard.Controllers
         public async Task<JsonResult> GetHour()
         {
             TimeSpan currentHour = DateTime.Now.TimeOfDay;
-            _db.AsyncStoreTimeSpan(currentHour,getName());
+            await _db.AsyncStoreTimeSpan(currentHour,getName());
             string hours = currentHour.Hours.ToString();
             string minutes = currentHour.Minutes.ToString();
             string seconds = currentHour.Seconds.ToString();

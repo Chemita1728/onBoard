@@ -11,7 +11,6 @@ namespace onBoard.Models
         [Key]
         [Required]
         public String Name { get; set; }
-
         public virtual ICollection<Hour> Hours { get; set; }
 
     }

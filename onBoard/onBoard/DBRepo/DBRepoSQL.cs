@@ -40,7 +40,10 @@ namespace onBoard.DBRepo
                 //var hours = hoursSQL.ConvertAll<Hour>(p => (Hour)p);
             
 
-                return _context.Hours.AsNoTracking().OrderByDescending(x => x.HourPressed).ToList().ConvertAll<Hour>(p => (Hour)p);
+                return _context.Hours.AsNoTracking()
+                    .OrderByDescending(x => x.HourPressed)
+                    .ToList()
+                    .ConvertAll<Hour>(p => (Hour)p);
             }
             catch (Exception ex)
             {

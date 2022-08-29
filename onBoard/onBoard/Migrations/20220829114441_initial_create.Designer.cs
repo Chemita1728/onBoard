@@ -12,8 +12,8 @@ using onBoard.Data;
 namespace onBoard.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20220809074745_initialMigration")]
-    partial class initialMigration
+    [Migration("20220829114441_initial_create")]
+    partial class initial_create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace onBoard.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("onBoard.Models.Hour", b =>
+            modelBuilder.Entity("onBoard.Models.HourSQL", b =>
                 {
                     b.Property<int>("HourID")
                         .ValueGeneratedOnAdd()
@@ -56,20 +56,15 @@ namespace onBoard.Migrations
                     b.ToTable("User", (string)null);
                 });
 
-            modelBuilder.Entity("onBoard.Models.Hour", b =>
+            modelBuilder.Entity("onBoard.Models.HourSQL", b =>
                 {
                     b.HasOne("onBoard.Models.User", "User")
-                        .WithMany("Hours")
+                        .WithMany()
                         .HasForeignKey("UserName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("onBoard.Models.User", b =>
-                {
-                    b.Navigation("Hours");
                 });
 #pragma warning restore 612, 618
         }

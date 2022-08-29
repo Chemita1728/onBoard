@@ -7,6 +7,5 @@ namespace onBoard.Models
 {
     public class UserSQL : User
     {
-        public int UserID { get; set; }
     }
 }

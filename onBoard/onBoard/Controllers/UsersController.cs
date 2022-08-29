@@ -22,7 +22,7 @@ namespace onBoard.Controllers
         //{
         //    _context = context;
         //}
-        public UsersController(DBRepoMongo db)
+        public UsersController(DBRepoSQL db)
         {
             _db = db;
         }

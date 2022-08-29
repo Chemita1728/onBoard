@@ -36,9 +36,6 @@ namespace onBoard.DBRepo
         {
             try
             {
-                //var hoursSQL = _context.Hours.AsNoTracking().OrderByDescending(x => x.HourPressed).ToList();
-                //var hours = hoursSQL.ConvertAll<Hour>(p => (Hour)p);
-            
 
                 return _context.Hours.AsNoTracking()
                     .OrderByDescending(x => x.HourPressed)

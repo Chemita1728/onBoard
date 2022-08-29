@@ -6,6 +6,7 @@ namespace onBoard.Models
 {
     public class User
     {
+
         public String Name { get; set; }
 
     }

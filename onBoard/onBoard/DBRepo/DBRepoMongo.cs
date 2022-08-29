@@ -24,20 +24,21 @@ namespace onBoard.DBRepo
 
         public Task AsyncStoreTimeSpan(TimeSpan currentHour, string name)
         {
-            UserMongo user = _hourCollection.Find(user => user.Name == name).Single();
+            UserMongo user = _hourCollection.Find(user => user.Name == name)?.Single();
 
             if (user!= null)
             {
-                user.Hours.Add(new HourMongo { HourPressed = currentHour, UserName = name });
+                user.Hours.Add(new Hour { HourPressed = currentHour, UserName = name });
+                //_hourCollection.UpdateOne(p=> p._id==user._id, Builders<UserMongo>.Update.Set("Hours", user.Hours.ToBsonDocument()));
                 _hourCollection.UpdateOne(p=> p._id==user._id, Builders<UserMongo>.Update.Set("Hours", user.Hours.ToBsonDocument()));
             }
             else
             {
-                List<HourMongo> hoursList = new();
+                List<Hour> hoursList = new();
 
                 UserMongo user_mongo = new UserMongo { Name = name, Hours = hoursList };
 
-                user_mongo.Hours.Add(new HourMongo { HourPressed = currentHour, UserName = name });
+                user_mongo.Hours.Add(new Hour { HourPressed = currentHour, UserName = name });
 
                 _hourCollection.InsertOne(user_mongo);
             }
@@ -52,7 +53,7 @@ namespace onBoard.DBRepo
 
         List<Hour> IDBRepo.GetList()
         {
-            return _hourCollection.Find(user => user.Name == "").Single().Hours.Cast<Hour>().ToList();
+            return _hourCollection.Find(user => user.Name == "")?.Single().Hours.Cast<Hour>().ToList();
         }
     }
 }

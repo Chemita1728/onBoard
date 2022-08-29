@@ -6,12 +6,8 @@ namespace onBoard.Models
 {
     public class User
     {
-
-        [Display(Name = "User name")]
-        [Key]
-        [Required]
         public String Name { get; set; }
-        public virtual ICollection<Hour> Hours { get; set; }
+        public virtual TimeSpan Hour { get; set; }
 
     }
 }

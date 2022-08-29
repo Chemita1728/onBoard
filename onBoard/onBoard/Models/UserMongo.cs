@@ -8,6 +8,5 @@ namespace onBoard.Models
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public ObjectId _id { get; set; }
-        public override ICollection<Hour> Hours { get; set; }
     }
 }

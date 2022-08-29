@@ -5,9 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace onBoard.Models
 {
-    public class HourSQL: Hour
+    public class UserSQL : User
     {
-        public int HourID { get; set; }
-        public User User { get; set; }
+        public int UserID { get; set; }
     }
 }

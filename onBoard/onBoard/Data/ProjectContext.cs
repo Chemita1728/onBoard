@@ -12,12 +12,12 @@ namespace onBoard.Data
 
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserSQL> Users { get; set; }
         public DbSet<HourSQL> Hours { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<UserSQL>().ToTable("User").HasKey(p => p.UserID);
             modelBuilder.Entity<HourSQL>().ToTable("Hour").HasKey(p => p.HourID);
         }
     }

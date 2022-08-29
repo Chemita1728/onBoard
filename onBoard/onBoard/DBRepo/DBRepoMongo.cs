@@ -24,26 +24,27 @@ namespace onBoard.DBRepo
 
         public Task AsyncStoreTimeSpan(TimeSpan currentHour, string name)
         {
-            bool exists =  _hourCollection.Find(_ => _.Name == name).Any();
+            //bool exists =  _hourCollection.Find(_ => _.Name == name).Any();
 
-            if (exists)
-            {
-                UserMongo user = _hourCollection.Find(user => user.Name == name).Single();
-                user.Hours.Add(new Hour { HourPressed = currentHour, UserName = name });
-                var filter = Builders<UserMongo>.Filter.Eq(p => p._id, user._id);
-                _hourCollection.ReplaceOneAsync(filter, user);
-            }
-            else
-            {
-                List<Hour> hoursList = new();
+            //if (exists)
+            //{
+            //    UserMongo user = _hourCollection.Find(user => user.Name == name).Single();
+            //    user.Hours.Add(new Hour { HourPressed = currentHour, UserName = name });
+            //    var filter = Builders<UserMongo>.Filter.Eq(p => p._id, user._id);
+            //    _hourCollection.ReplaceOneAsync(filter, user);
+            //}
+            //else
+            //{
+                //List<Hour> hoursList = new();
 
-                UserMongo user_mongo = new UserMongo { Name = name, Hours = hoursList };
+                //UserMongo user_mongo = new UserMongo { Name = name, Hours = hoursList };
+                UserMongo user_mongo = new UserMongo { Name = name, Hour = currentHour };
 
-                user_mongo.Hours.Add(new Hour { HourPressed = currentHour, UserName = name });
+                //user_mongo.Hours.Add(new Hour { HourPressed = currentHour, UserName = name });
 
                 _hourCollection.InsertOne(user_mongo);
 
-            }
+            //}
 
             return Task.CompletedTask;
         }
@@ -58,9 +59,9 @@ namespace onBoard.DBRepo
             //return _hourCollection.Find(user => user.Name == "Armando Bronca Segura")?.Single().Hours.ToList();
             var collection = _hourCollection.Find(_ => true).ToList();
             List<Hour> sol = new List<Hour>();
-
-            collection.ForEach(List<Hour> list in  )
-            return _hourCollection.Find(_ => true)?.Single().Hours.ToList();
+            return sol;
+            //collection.ForEach(List<Hour> list in  )
+            //return _hourCollection.Find(_ => true)?.Single().Hours.ToList();
         }
     }
 }

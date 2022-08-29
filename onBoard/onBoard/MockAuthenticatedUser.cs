@@ -10,7 +10,7 @@ namespace onBoard
     public class MockAuthenticatedUser : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         const string userId = "ppp";
-        const string userName = "El Paco";
+        const string userName = "El Pepe";
         const string userRole = "ProductManager";
 
         public MockAuthenticatedUser(

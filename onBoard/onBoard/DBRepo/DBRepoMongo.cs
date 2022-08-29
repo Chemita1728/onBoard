@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 
 using onBoard.Models;
+using MongoDB.Bson.Serialization;
 
 namespace onBoard.DBRepo
 {
@@ -55,13 +56,13 @@ namespace onBoard.DBRepo
         }
 
         List<Hour> IDBRepo.GetList()
-        {
-            //return _hourCollection.Find(user => user.Name == "Armando Bronca Segura")?.Single().Hours.ToList();
-            var collection = _hourCollection.Find(_ => true).ToList();
-            List<Hour> sol = new List<Hour>();
-            return sol;
-            //collection.ForEach(List<Hour> list in  )
-            //return _hourCollection.Find(_ => true)?.Single().Hours.ToList();
-        }
+            =>  _hourCollection.Find(_ => true)
+                .ToList()
+                ?.Select(p => new Hour
+                { 
+                    UserName = p.Name,
+                    HourPressed = p.Hour
+                }).ToList() ?? new List<Hour> { };
     }
 }
+ 

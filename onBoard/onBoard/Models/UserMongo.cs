@@ -8,5 +8,7 @@ namespace onBoard.Models
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public ObjectId _id { get; set; }
+        public TimeSpan Hour { get; set; }
+
     }
 }

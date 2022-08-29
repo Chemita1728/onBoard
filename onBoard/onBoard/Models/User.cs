@@ -7,7 +7,6 @@ namespace onBoard.Models
     public class User
     {
         public String Name { get; set; }
-        public virtual TimeSpan Hour { get; set; }
 
     }
 }

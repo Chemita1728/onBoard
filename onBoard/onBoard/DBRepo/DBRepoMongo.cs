@@ -24,13 +24,17 @@ namespace onBoard.DBRepo
 
         public Task AsyncStoreTimeSpan(TimeSpan currentHour, string name)
         {
-            UserMongo user = _hourCollection.Find(user => user.Name == name)?.Single();
+            //var filter = Builders<UserMongo>.Filter.Eq(p => p.Name, name);
+            //UserMongo user = _hourCollection.Find(filter)?.Single();
 
-            if (user!= null)
+            bool exists =  _hourCollection.Find(_ => _.Name == name).Any();
+
+            if (exists)
             {
+                UserMongo user = _hourCollection.Find(user => user.Name == name).Single();
                 user.Hours.Add(new Hour { HourPressed = currentHour, UserName = name });
-                //_hourCollection.UpdateOne(p=> p._id==user._id, Builders<UserMongo>.Update.Set("Hours", user.Hours.ToBsonDocument()));
-                _hourCollection.UpdateOne(p=> p._id==user._id, Builders<UserMongo>.Update.Set("Hours", user.Hours.ToBsonDocument()));
+                var filter = Builders<UserMongo>.Filter.Eq(p => p._id, user._id);
+                _hourCollection.ReplaceOneAsync(filter, user);
             }
             else
             {
@@ -41,7 +45,24 @@ namespace onBoard.DBRepo
                 user_mongo.Hours.Add(new Hour { HourPressed = currentHour, UserName = name });
 
                 _hourCollection.InsertOne(user_mongo);
+
             }
+            //if (user!= null)
+            //{
+            //    user.Hours.Add(new Hour { HourPressed = currentHour, UserName = name });
+            //    filter = Builders<UserMongo>.Filter.Eq(p=>p._id, user._id);
+            //    _hourCollection.ReplaceOneAsync(filter, user);
+            //}
+            //else
+            //{
+            //    List<Hour> hoursList = new();
+
+            //    UserMongo user_mongo = new UserMongo { Name = name, Hours = hoursList };
+
+            //    user_mongo.Hours.Add(new Hour { HourPressed = currentHour, UserName = name });
+
+            //    _hourCollection.InsertOne(user_mongo);
+            //}
 
             return Task.CompletedTask;
         }
@@ -53,7 +74,8 @@ namespace onBoard.DBRepo
 
         List<Hour> IDBRepo.GetList()
         {
-            return _hourCollection.Find(user => user.Name == "")?.Single().Hours.Cast<Hour>().ToList();
+            //return _hourCollection.Find(user => user.Name == "Armando Bronca Segura")?.Single().Hours.ToList();
+            return _hourCollection.Find(_ => true)?.Single().Hours.ToList();
         }
     }
 }

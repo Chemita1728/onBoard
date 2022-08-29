@@ -9,8 +9,8 @@ namespace onBoard
 {
     public class MockAuthenticatedUser : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        const string userId = "phv";
-        const string userName = "Armando Bronca Segura";
+        const string userId = "ppp";
+        const string userName = "El Paco";
         const string userRole = "ProductManager";
 
         public MockAuthenticatedUser(
@@ -27,7 +27,7 @@ namespace onBoard
           new Claim(ClaimTypes.NameIdentifier, userId),
           new Claim(ClaimTypes.Name, userName),
           new Claim(ClaimTypes.Role, userRole),
-          new Claim(ClaimTypes.Email, "peter.vogel@phvis.com"),
+          new Claim(ClaimTypes.Email, "hello@you.com"),
         };
             var identity = new ClaimsIdentity(claims, Scheme.Name);
             var principal = new ClaimsPrincipal(identity);

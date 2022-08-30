@@ -79,7 +79,7 @@
     function showClicks(userName) {
         $.ajax({
             url: "/Users/GetTimesClicked",
-            method: "GET",
+            method: "POST",
             dataType: "json",
             data: { userName: userName }
         }).done(function(res) {
@@ -90,7 +90,7 @@
     function getHour() {
         $.ajax({
             url: "/Users/GetHourFromForm",
-            method: "GET",
+            method: "POST",
             dataType: "json",
             data: { userName: userName.value }
         }).done(function(res) {

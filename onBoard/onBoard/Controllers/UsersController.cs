@@ -89,7 +89,7 @@ namespace onBoard.Controllers
         // POST: Users/GetHour
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpGet]
+        [HttpPost]
         public async Task<JsonResult> GetHourFromForm( string userName)
         {
 
@@ -110,7 +110,7 @@ namespace onBoard.Controllers
             return Json(myData);
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<JsonResult> GetTimesClicked( string userName )
         {
 

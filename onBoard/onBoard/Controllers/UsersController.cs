@@ -84,5 +84,44 @@ namespace onBoard.Controllers
             var name = getName();
             return Json(name);
         }
+
+
+        // POST: Users/GetHour
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpGet]
+        public async Task<JsonResult> GetHourFromForm( string userName)
+        {
+
+            TimeSpan currentHour = DateTime.Now.TimeOfDay;
+            _db.AsyncStoreTimeSpan(currentHour, userName);
+            string hours = currentHour.Hours.ToString();
+            string minutes = currentHour.Minutes.ToString();
+            string seconds = currentHour.Seconds.ToString();
+
+            var myData = new
+            {
+                hours,
+                minutes,
+                seconds
+            };
+
+            //Tranform it to Json object
+            return Json(myData);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetTimesClicked( string userName )
+        {
+
+            var myData = new
+            {
+                clicks = _db.GetClicksByUser(userName)
+            };
+
+            //Tranform it to Json object
+            return Json(myData);
+        }
+
     }
 }

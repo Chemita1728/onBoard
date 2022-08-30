@@ -4,34 +4,101 @@
 }
 
 <div class="text-center">
+    User:
+    <input @*onChange="enableButton()"*@ id="userName" type="text" />
+    , has clicked the button
+    <input id="timesClicked" type="text" disabled />
+    times
+</div>
+
+<div class="text-center">
     <h1 style="margin-bottom: 50px" class="display-4">Hour Page</h1>
+
     <div style="text-align:center">
-        <input id="hora"  name="Hour" type="text" disabled/>
-        <input id="minuto"  name="Minute" type="text" disabled/>
-        <input style="margin-bottom: 50px" id="segundo"  name="Second" type="text" disabled/>
+        <input id="hora" name="Hour" type="text" disabled />
+        <input id="minuto" name="Minute" type="text" disabled />
+        <input style="margin-bottom: 50px" id="segundo" name="Second" type="text" disabled />
 
         <form asp-action="GetHour">
             <div class="form-group">
-                <input type="button" onclick="getHour()" value="Button" class="btn btn-primary"/>
+                <input id="button" type="button" onclick="getHour()" value="Button" class="btn btn-primary" disabled />
             </div>
         </form>
     </div>
 </div>
 
 
-<script>    
-    window.DEBUG = true; 
-    function getHour(){
-        
+<script>
+    window.DEBUG = true;
+
+    window.addEventListener('load', (event) => {
+       (function() {
+            console.log("pageloaded");
+            $('#userName').on('change', function(event) {
+                enableButton();
+            });
+
+        })();
+    });
+    //var viewmodel = {
+    //    data: {
+    //        defaultMessage: {
+    //            clikedBtnMsg : "YOOOOJUUUU!"
+    //        }
+    //    }
+    //    enableButton: () => {
+    //         if (userName.value != "") {
+    //            button.disabled = false;
+    //             showClicks(view.username().value);
+    //             console.log(viewmodel.data.defaultMessage.clikedBtnMsg);
+
+    //        }
+    //    }
+    //};
+
+    //var view = {
+    //    username : () => document.getElementById("username"),
+    //    init() {
+    //        // btn
+    //        // btn.addEventListener('click', viewmodel.enableBtn)
+    //    }
+
+    //}
+
+    var buttom = document.getElementById("button");
+    var userName = document.getElementById("userName");
+    console.log(userName.value);
+
+    function enableButton() {
+        if (userName.value != "") {
+            button.disabled = false;
+            showClicks(userName.value)
+        }
+    }
+
+    function showClicks(userName) {
         $.ajax({
-            url: "/Users/GetHour",
+            url: "/Users/GetTimesClicked",
             method: "GET",
-            dataType: "json"
+            dataType: "json",
+            data: { userName: userName }
+        }).done(function(res) {
+            $("#timesClicked").val(res.clicks);
+        });
+    }
+
+    function getHour() {
+        $.ajax({
+            url: "/Users/GetHourFromForm",
+            method: "GET",
+            dataType: "json",
+            data: { userName: userName.value }
         }).done(function(res) {
             console.log(res);
             $("#hora").val(res.hours);
             $("#minuto").val(res.minutes);
             $("#segundo").val(res.seconds);
+            showClicks(userName.value);
         }).fail(function(res) {
             $("#errMsg").html("<strong>Somethign went wrong!</strong>")
         }).always(function() {

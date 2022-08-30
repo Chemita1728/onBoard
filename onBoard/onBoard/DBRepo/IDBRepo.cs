@@ -8,5 +8,7 @@ namespace onBoard.DBRepo
         public Task AsyncStoreTimeSpan(TimeSpan currentHour, string name);
         public List<Hour> GetList();
         public Task<List<Hour>> AsyncGetList();
+
+        public int GetClicksByUser(string userName);
     }
 }

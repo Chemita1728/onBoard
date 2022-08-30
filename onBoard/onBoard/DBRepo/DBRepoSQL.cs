@@ -48,5 +48,11 @@ namespace onBoard.DBRepo
             _context.Add(hour);
             _context.SaveChanges();
         }
+
+        public int GetClicksByUser(string userName)
+        {
+            return _context.Hours.Count(x => x.UserName == userName);
+
+        }
     }
 }

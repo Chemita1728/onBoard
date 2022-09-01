@@ -27,4 +27,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.7" />
   </ItemGroup>
 
+<<<<<<< Updated upstream
+=======
+	<ItemGroup>
+		<InternalsVisibleTo Include="onBoard.Tests" />
+	</ItemGroup>
+	
+>>>>>>> Stashed changes
 </Project>

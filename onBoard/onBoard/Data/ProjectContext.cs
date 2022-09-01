@@ -11,7 +11,10 @@ namespace onBoard.Data
         {
 
         }
+        public ProjectContext()
+        {
 
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<Hour> Hours { get; set; }
 

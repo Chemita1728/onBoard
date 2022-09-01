@@ -48,14 +48,10 @@ namespace onBoard.DBRepo
             _context.Add(hour);
             _context.SaveChanges();
         }
-<<<<<<< Updated upstream
-=======
-
         public virtual int GetClicksByUser(string userName)
         {
             return _context.Hours.Count(x => x.UserName == userName);
 
         }
->>>>>>> Stashed changes
     }
 }
